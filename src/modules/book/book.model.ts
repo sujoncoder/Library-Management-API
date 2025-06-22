@@ -43,6 +43,16 @@ const bookSchema = new Schema<IBook>({
     }
 }, { timestamps: true });
 
+
+// INSTANCE METHOD
+bookSchema.methods.updateAvailabilityAfterBorrow = function (quantity: number) {
+    this.copies -= quantity;
+
+    if (this.copies <= 0) {
+        this.available = false;
+    }
+}
+
 const Book = model("Book", bookSchema);
 
 export default Book;

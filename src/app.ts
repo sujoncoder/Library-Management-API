@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import bookRoute from "./modules/book/book.route";
+import borrowRoute from "./modules/borrow/borrow.route";
 
 const app: Application = express();
 
@@ -8,6 +9,7 @@ app.use(express.json());
 
 // APPLICATION ROUTE
 app.use("/api/books", bookRoute);
+app.use("/api/borrow", borrowRoute);
 
 // ROOT ROUTE
 app.get("/", (req: Request, res: Response) => {
