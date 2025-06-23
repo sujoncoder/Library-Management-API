@@ -10,7 +10,7 @@ export const createBorrow = async (req: Request, res: Response) => {
         const { book, quantity, dueDate } = req.body;
 
         if (!mongoose.Types.ObjectId.isValid(book)) {
-            return res.status(400).json({
+            res.status(400).json({
                 message: "Validation failed",
                 success: false,
                 error: {
@@ -23,12 +23,13 @@ export const createBorrow = async (req: Request, res: Response) => {
                     },
                 },
             })
+            return
         };
 
         const foundBook = await Book.findById(book);
 
         if (!foundBook) {
-            return res.status(400).json({
+            res.status(400).json({
                 message: "Validation failed",
                 success: false,
                 error: {
@@ -41,12 +42,13 @@ export const createBorrow = async (req: Request, res: Response) => {
                     },
                 },
             })
+            return
         }
 
 
 
         if (foundBook.copies < quantity) {
-            return res.status(400).json({
+            res.status(400).json({
                 message: "Validation failed",
                 success: false,
                 error: {
@@ -59,6 +61,7 @@ export const createBorrow = async (req: Request, res: Response) => {
                     },
                 },
             });
+            return
         }
 
 

@@ -1,6 +1,6 @@
 import { Response } from "express";
 
-export const handleError = (error: any, res: Response) => {
+export const handleError = (error: any, res: Response): Response => {
 
     // Handle mongoose validation error
     if (error.name === "ValidationError") {

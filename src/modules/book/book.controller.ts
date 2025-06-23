@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { Request, Response, RequestHandler } from "express";
+import mongoose, { Types } from "mongoose";
 import Book from "./book.model";
 import { handleError } from "../../utils/errorHandler";
 import { IBook } from "./book.interface";
-import mongoose from "mongoose";
 
 
 // CREATE BOOK
@@ -35,8 +35,7 @@ export const getBooks = async (req: Request, res: Response) => {
             genre: filterGenre
         } : {};
 
-        const sortObj: Record<string, number> = {};
-        sortObj[sortBy] = sortOrder;
+        const sortObj: [string, 1 | -1][] = [[sortBy, sortOrder]];
 
         const books = await Book.find(filterObj).sort(sortObj).limit(limit);
 
@@ -59,7 +58,7 @@ export const getBookById = async (req: Request, res: Response) => {
         const id = req.params.bookId;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({
+            res.status(400).json({
                 success: false,
                 message: "Invalid book ID format",
                 error: {
@@ -72,12 +71,13 @@ export const getBookById = async (req: Request, res: Response) => {
                     },
                 },
             })
+            return
         };
 
         const book = await Book.findById(id);
 
         if (!book) {
-            return res.status(400).json({
+            res.status(400).json({
                 success: false,
                 message: "Book not found",
                 error: {
@@ -90,6 +90,7 @@ export const getBookById = async (req: Request, res: Response) => {
                     },
                 },
             })
+            return
         }
 
         res.status(200).json({
@@ -109,7 +110,7 @@ export const updateBook = async (req: Request, res: Response) => {
         const id = req.params.bookId;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({
+            res.status(400).json({
                 success: false,
                 message: "Invalid book ID format",
                 error: {
@@ -122,6 +123,7 @@ export const updateBook = async (req: Request, res: Response) => {
                     },
                 },
             })
+            return
         };
 
         const updateBook = await Book.findByIdAndUpdate(id, req.body,
@@ -132,7 +134,7 @@ export const updateBook = async (req: Request, res: Response) => {
         );
 
         if (!updateBook) {
-            return res.status(400).json({
+            res.status(400).json({
                 success: false,
                 message: "Book not found",
                 error: {
@@ -145,6 +147,7 @@ export const updateBook = async (req: Request, res: Response) => {
                     },
                 },
             })
+            return
         }
 
         res.status(200).json({
@@ -163,8 +166,8 @@ export const deleteBook = async (req: Request, res: Response) => {
     try {
         const id = req.params.bookId;
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({
+        if (!Types.ObjectId.isValid(id)) {
+            res.status(400).json({
                 success: false,
                 message: "Invalid book ID format",
                 error: {
@@ -177,12 +180,13 @@ export const deleteBook = async (req: Request, res: Response) => {
                     },
                 },
             })
+            return
         };
 
         const deleteBook = await Book.findByIdAndDelete(id, { new: true });
 
         if (!deleteBook) {
-            return res.status(400).json({
+            res.status(400).json({
                 success: false,
                 message: "Book not found",
                 error: {
@@ -195,13 +199,15 @@ export const deleteBook = async (req: Request, res: Response) => {
                     },
                 },
             })
+            return
         }
 
         res.status(200).json({
             success: true,
             "message": "Book deleted successfully",
             data: deleteBook
-        })
+        });
+
     } catch (error: any) {
         handleError(error, res);
     }
