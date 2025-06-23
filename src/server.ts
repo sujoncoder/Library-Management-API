@@ -3,6 +3,8 @@ import { PORT } from "./config/constant";
 import connectDB from "./config/db";
 
 
+
+// SERVER START FUNCTION
 const startServer = async () => {
     try {
         await connectDB();
@@ -11,7 +13,7 @@ const startServer = async () => {
         });
     } catch (error: any) {
         console.error("Failed to start server:", error.message);
-    }
+    };
 };
 
 startServer();

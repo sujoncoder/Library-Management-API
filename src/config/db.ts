@@ -1,15 +1,17 @@
 import mongoose from "mongoose";
 import { MONGODB_URI } from "./constant";
 
+
+
 let cached = false;
 
 const connectDB = async () => {
 
-    if (cached || mongoose.connection.readyState === 1) return
+    if (cached || mongoose.connection.readyState === 1) return;
+
     if (!MONGODB_URI) throw new Error("MONGODB_URI is not defined");
 
     try {
-
         await mongoose.connect(MONGODB_URI, {
             serverSelectionTimeoutMS: 5000,
             maxPoolSize: 10,

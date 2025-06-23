@@ -9,4 +9,4 @@ export interface IBook extends Document {
     copies: number;
     available: boolean;
     updateAvailabilityAfterBorrow(quantity: number): void;
-}
+};

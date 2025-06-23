@@ -30,7 +30,7 @@ const bookSchema = new Schema<IBook>({
     },
     description: {
         type: String,
-        maxlength: [500, "Description too long"]
+        maxlength: [500, "Description too long, Description must be in 500 characters"]
     },
     copies: {
         type: Number,
@@ -51,7 +51,7 @@ bookSchema.methods.updateAvailabilityAfterBorrow = function (quantity: number) {
     if (this.copies <= 0) {
         this.available = false;
     }
-}
+};
 
 const Book = model("Book", bookSchema);
 

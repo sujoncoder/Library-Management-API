@@ -4,17 +4,15 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "lint": "npx eslint",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sujon Sheikh",
   "license": "ISC",
-  "description": "",
+  "description": "A library management system API",
   "dependencies": {
     "dotenv": "^16.5.0",
-    "eslint": "^9.29.0",
     "express": "^5.1.0",
     "mongoose": "^8.16.0"
   },

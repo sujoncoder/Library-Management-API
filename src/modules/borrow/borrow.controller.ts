@@ -9,6 +9,7 @@ export const createBorrow = async (req: Request, res: Response) => {
     try {
         const { book, quantity, dueDate } = req.body;
 
+        // CHECK MONGODB OBJECT_ID
         if (!mongoose.Types.ObjectId.isValid(book)) {
             res.status(400).json({
                 message: "Validation failed",
@@ -26,8 +27,11 @@ export const createBorrow = async (req: Request, res: Response) => {
             return
         };
 
+
         const foundBook = await Book.findById(book);
 
+
+        // CHECK IS BOOK EXIST OR NOT
         if (!foundBook) {
             res.status(400).json({
                 message: "Validation failed",
@@ -43,10 +47,10 @@ export const createBorrow = async (req: Request, res: Response) => {
                 },
             })
             return
-        }
+        };
 
 
-
+        // CHECK BOOK COPIES ARE AVAIBLE ABALE OR NOT
         if (foundBook.copies < quantity) {
             res.status(400).json({
                 message: "Validation failed",
@@ -62,9 +66,9 @@ export const createBorrow = async (req: Request, res: Response) => {
                 },
             });
             return
-        }
+        };
 
-
+        // INSTANCE METHOD
         foundBook.updateAvailabilityAfterBorrow(quantity);
 
         await foundBook.save();
@@ -78,7 +82,7 @@ export const createBorrow = async (req: Request, res: Response) => {
         });
     } catch (error) {
         handleError(error, res)
-    }
+    };
 };
 
 
@@ -121,7 +125,8 @@ export const getBorrowedSummary = async (req: Request, res: Response) => {
             message: "Borrowed books summary retrieved successfully",
             data: summary
         });
+
     } catch (error) {
         handleError(error, res)
-    }
+    };
 };

@@ -1,4 +1,4 @@
-import { Request, Response, RequestHandler } from "express";
+import { Request, Response } from "express";
 import mongoose, { Types } from "mongoose";
 import Book from "./book.model";
 import { handleError } from "../../utils/errorHandler";
@@ -15,14 +15,14 @@ export const createBook = async (req: Request, res: Response) => {
             success: true,
             "message": "Book created successfully",
             data: book
-        })
+        });
     } catch (error: any) {
         handleError(error, res);
-    }
+    };
 };
 
 
-// GET BOOKS
+// GET BOOKS WITH FILTERING
 export const getBooks = async (req: Request, res: Response) => {
     try {
         const filterGenre = (req.query.filter as string)?.toUpperCase();
@@ -44,19 +44,19 @@ export const getBooks = async (req: Request, res: Response) => {
             success: true,
             "message": "Books retrieved successfully",
             data: books
-        })
+        });
     } catch (error: any) {
         handleError(error, res);
-    }
+    };
 };
 
 
 // GET A BOOK BY ID
 export const getBookById = async (req: Request, res: Response) => {
     try {
-
         const id = req.params.bookId;
 
+        // CHECK MONGODB OBJECT_ID
         if (!mongoose.Types.ObjectId.isValid(id)) {
             res.status(400).json({
                 success: false,
@@ -74,8 +74,10 @@ export const getBookById = async (req: Request, res: Response) => {
             return
         };
 
+        // FIND BOOK USING ID
         const book = await Book.findById(id);
 
+        // CHECK IS BOOK EXIST OR NOT
         if (!book) {
             res.status(400).json({
                 success: false,
@@ -91,13 +93,14 @@ export const getBookById = async (req: Request, res: Response) => {
                 },
             })
             return
-        }
+        };
 
         res.status(200).json({
             success: true,
             "message": "Book retrieved successfully",
             data: book
-        })
+        });
+
     } catch (error: any) {
         handleError(error, res);
     }
@@ -109,6 +112,7 @@ export const updateBook = async (req: Request, res: Response) => {
     try {
         const id = req.params.bookId;
 
+        // CHECK MONGODB OBJECT_ID
         if (!mongoose.Types.ObjectId.isValid(id)) {
             res.status(400).json({
                 success: false,
@@ -133,6 +137,7 @@ export const updateBook = async (req: Request, res: Response) => {
             }
         );
 
+        // CHECK IS BOOK EXIST OR NOT
         if (!updateBook) {
             res.status(400).json({
                 success: false,
@@ -148,13 +153,14 @@ export const updateBook = async (req: Request, res: Response) => {
                 },
             })
             return
-        }
+        };
 
         res.status(200).json({
             success: true,
             "message": "Book updated successfully",
             data: updateBook
-        })
+        });
+
     } catch (error: any) {
         handleError(error, res);
     }
@@ -166,6 +172,7 @@ export const deleteBook = async (req: Request, res: Response) => {
     try {
         const id = req.params.bookId;
 
+        // CHECK MONGODB OBJECT_ID
         if (!Types.ObjectId.isValid(id)) {
             res.status(400).json({
                 success: false,
@@ -185,6 +192,8 @@ export const deleteBook = async (req: Request, res: Response) => {
 
         const deleteBook = await Book.findByIdAndDelete(id, { new: true });
 
+
+        // CHECK IS BOOK EXIST OR NOT
         if (!deleteBook) {
             res.status(400).json({
                 success: false,
@@ -200,7 +209,7 @@ export const deleteBook = async (req: Request, res: Response) => {
                 },
             })
             return
-        }
+        };
 
         res.status(200).json({
             success: true,
@@ -210,5 +219,5 @@ export const deleteBook = async (req: Request, res: Response) => {
 
     } catch (error: any) {
         handleError(error, res);
-    }
+    };
 };
