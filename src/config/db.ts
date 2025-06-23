@@ -1,18 +1,14 @@
 import mongoose from "mongoose";
 import { MONGODB_URI } from "./constant";
 
-let cachedDb: mongoose.Connection | null = null;
+let cached = false;
 
 const connectDB = async () => {
-    if (cachedDb && mongoose.connection.readyState === 1) {
-        console.log("Using cached MongoDB connection ✅");
-        return cachedDb;
-    };
+
+    if (cached || mongoose.connection.readyState === 1) return
+    if (!MONGODB_URI) throw new Error("MONGODB_URI is not defined");
 
     try {
-        if (!MONGODB_URI) {
-            throw new Error("MONGODB_URI is not defined");
-        }
 
         await mongoose.connect(MONGODB_URI, {
             serverSelectionTimeoutMS: 5000,
@@ -21,9 +17,9 @@ const connectDB = async () => {
             autoIndex: false,
         });
 
-        cachedDb = mongoose.connection;
+        cached = true;
         console.log("Database connected successfully ✅");
-        return cachedDb;
+
     } catch (error: any) {
         console.error("Database connection failed 🔥", error.message);
         throw error;

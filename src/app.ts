@@ -9,15 +9,15 @@ const app: Application = express();
 app.use(express.json());
 
 // Database connection middleware
-app.use(async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        await connectDB();
-        next();
-    } catch (error: any) {
-        console.error("Database connection error:", error.message);
-        res.status(500).json({ message: "Database connection failed", success: false, error: error.message });
-    }
-});
+// app.use(async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//         await connectDB();
+//         next();
+//     } catch (error: any) {
+//         console.error("Database connection error:", error.message);
+//         res.status(500).json({ message: "Database connection failed", success: false, error: error.message });
+//     }
+// });
 
 // APPLICATION ROUTE
 app.use("/api/books", bookRoute);
