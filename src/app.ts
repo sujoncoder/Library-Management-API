@@ -2,7 +2,6 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import bookRoute from "./modules/book/book.route";
 import borrowRoute from "./modules/borrow/borrow.route";
 import connectDB from "./config/db";
-import { handleError } from "./utils/errorHandler";
 
 const app: Application = express();
 

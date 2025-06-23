@@ -7,7 +7,7 @@ const connectDB = async () => {
     if (cachedDb && mongoose.connection.readyState === 1) {
         console.log("Using cached MongoDB connection ✅");
         return cachedDb;
-    }
+    };
 
     try {
         if (!MONGODB_URI) {
