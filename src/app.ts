@@ -19,12 +19,25 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 
-// ERROR HANDLING MIDDLEWARE  
+// HANDLE NOT-FOUND HANDLER 
+app.use((req: Request, res: Response) => {
+    res.status(404).json({
+        success: false,
+        message: "Route not found",
+        error: {
+            path: req.originalUrl,
+            method: req.method
+        }
+    });
+});
+
+// HANDLE GLOBAL ERROR
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.error("Server error:", err.message);
     res.status(500).json({
+        success: false,
         message: "Something went wrong",
-        success: false, error: err.message
+        error: err.message
     });
 });
 
