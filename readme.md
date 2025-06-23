@@ -48,9 +48,9 @@ A RESTfull API to manage a library management system built using **Express**, **
 
 Github Link : https://github.com/sujoncoder/Library-Management-API
 
-Live Link : https://github.com/sujoncoder/Library-Management-API
+Live Link : https://library-management-api-nine-plum.vercel.app/
 
-Video Link : https://github.com/sujoncoder/Library-Management-API
+Video Link : https://drive.google.com/file/d/1G6FB4CDyNpMwIUjtzeMuWsiW9RMZABZ6/view?usp=sharing
 
 ---
 
