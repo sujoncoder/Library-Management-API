@@ -1,7 +1,6 @@
-# 📚 Library Management API.
+# 📚 Library Management API
 
 A RESTfull API to manage a library management system built using **Express**, **Typescript**, **Mongodb** ,**Mongoose** this project coverd all assignment requiredments.
-
 
 ---
 
@@ -17,7 +16,6 @@ A RESTfull API to manage a library management system built using **Express**, **
 ✅ Error handling with structured response  
 ✅ Mongoose static methods & middleware used  
 ✅ Clean and scalable project structure  
-
 
 ## 🛠️ Tech Stack
 
@@ -45,6 +43,40 @@ A RESTfull API to manage a library management system built using **Express**, **
 | POST   | `/api/borrow`| Borrow a book                      |
 | GET    | `/api/borrow`| Get summary of borrowed books      |
 
+
+## 🔗 Importants Links
+
+Github Link : https://github.com/sujoncoder/Library-Management-API
+
+Live Link : https://github.com/sujoncoder/Library-Management-API
+
+Video Link : https://github.com/sujoncoder/Library-Management-API
+
 ---
 
-[Live link : ](https://www.example.com)  https://www.example.com
+
+## ⚙️ How to Run Locally
+
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/sujoncoder/library-management-api.git
+
+2. **Install dependensis**
+   ```bash
+   npm install
+
+3. **Create .env file**
+   ```bash
+   MONGODB_URI = YOUR_MONGODB_URI_STRING
+
+4. **Run the project**
+   ```bash
+   npm run dev
+
+---
+
+## Happy codding...😎🧑‍💻
+
+
+![alt text](image.png)
