@@ -5,10 +5,6 @@ import borrowRoute from "./modules/borrow/borrow.route";
 
 const app: Application = express();
 
-const allowedOrigins = [
-    "http://localhost:5173",
-    "https://your-frontend.vercel.app",
-];
 
 app.use(cors({ origin: "*" }));
 app.use(express.json());
