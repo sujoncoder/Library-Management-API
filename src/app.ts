@@ -1,13 +1,14 @@
 import express, { Application, NextFunction, Request, Response } from "express";
 import cors from "cors"
+import cookieParser from "cookie-parser";
 import bookRoute from "./modules/book/book.route";
 import borrowRoute from "./modules/borrow/borrow.route";
 
 const app: Application = express();
 
-
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: ["http://localhost:5173/"] }));
 app.use(express.json());
+app.use(cookieParser());
 
 
 // APPLICATION ROUTE
