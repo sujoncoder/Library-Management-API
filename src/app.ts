@@ -1,10 +1,16 @@
 import express, { Application, NextFunction, Request, Response } from "express";
+import cors from "cors"
 import bookRoute from "./modules/book/book.route";
 import borrowRoute from "./modules/borrow/borrow.route";
 
 const app: Application = express();
 
-// APPLICATION LAYER
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://your-frontend.vercel.app",
+];
+
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 
